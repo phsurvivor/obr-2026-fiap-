@@ -16,20 +16,25 @@ double delay_exec = .2;
 double vel_padrao = 200;
 double vel_padrao_curva = 1000;
 double vel_padrao_curva2 = -700;
+double angulo_descida_inf = 80.0;
+double angulo_descida_sup = 90.0;
+double vel_descida_fator = 0.2;
+double angulo_subida = 270.0;
+double vel_subida_fator = 1.5;
 
 // o sBotics se tiver em outra língua, os sensores vão reportar outra cor.. por algum motivo
 // só vamos aceitar...
 
-// Inglês
-const string preto = "Black";
-const string branco = "White";
-const string vermelho = "Red";
-const string verde = "Green";
+// // Inglês
+// const string preto = "Black";
+// const string branco = "White";
+// const string vermelho = "Red";
+// const string verde = "Green";
 
-/* const string preto = "Preto";
+const string preto = "Preto";
 const string branco = "Branco";
 const string vermelho = "Vermelho";
-const string verde = "Verde"; */
+const string verde = "Verde";
 
 // Movimentos
 async Task andar_frente(double velocidade = 100) {
@@ -84,6 +89,19 @@ async Task virar_2(double velocidade = 200, double tick = 1, string lado = "D")
     }
 }
 
+double acelaracao_por_angulo(double velocidade) {
+    // Medicoes de debug: descida = 80-90, subida ~270
+    double inclinacao = Bot.Inclination;
+    if (dbg) IO.PrintLine($"Inclinacao: {inclinacao}");
+    if (inclinacao >= angulo_descida_inf && inclinacao <= angulo_descida_sup) {
+        return velocidade * vel_descida_fator;
+    }
+    if (inclinacao >= angulo_subida) {
+        return velocidade * vel_subida_fator;
+    }
+    return velocidade;
+}
+
 async Task Main()
 {
     if (dbg) IO.OpenConsole();
@@ -120,7 +138,7 @@ async Task Main()
         )
         {
             if (dbg) IO.PrintLine("Frente");
-            await andar_frente();
+            await andar_frente(acelaracao_por_angulo(vel_padrao));
         }
         else if (
             (info_sensor_cor_direita_lado == preto) &&
@@ -149,7 +167,7 @@ async Task Main()
         else
         {
             if (dbg) IO.PrintLine("Frente");
-            await andar_frente(200);
+            await andar_frente(acelaracao_por_angulo(200));
         }
     }
 }
