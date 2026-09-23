@@ -21,23 +21,17 @@ double angulo_subida = 270.0;
 double vel_subida_fator = 1.5;
 
 // Constantes de cores (compatível com inglês e português)
+
+// Inglês
 const string preto = "Black";
 const string branco = "White";
 const string vermelho = "Red";
 const string verde = "Green";
-// o sBotics se tiver em outra língua, os sensores vão reportar outra cor.. por algum motivo
-// só vamos aceitar...
 
-// // Inglês
-// const string preto = "Black";
-// const string branco = "White";
-// const string vermelho = "Red";
-// const string verde = "Green";
-
-const string preto = "Preto";
+/* const string preto = "Preto";
 const string branco = "Branco";
 const string vermelho = "Vermelho";
-const string verde = "Verde";
+const string verde = "Verde"; */
 
 // Métodos auxiliares para acessar componentes
 Servomotor GetMotor(string referencia) => Bot.GetComponent<Servomotor>(referencia);
