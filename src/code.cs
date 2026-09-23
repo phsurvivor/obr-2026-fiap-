@@ -14,17 +14,30 @@ double delay_exec = 0.2;
 double vel_padrao = 200;
 double vel_padrao_curva = 1000;
 double vel_padrao_curva2 = -700;
+double angulo_descida_inf = 80.0;
+double angulo_descida_sup = 90.0;
+double vel_descida_fator = 0.2;
+double angulo_subida = 270.0;
+double vel_subida_fator = 1.5;
 
 // Constantes de cores (compatível com inglês e português)
 const string preto = "Black";
 const string branco = "White";
 const string vermelho = "Red";
 const string verde = "Green";
+// o sBotics se tiver em outra língua, os sensores vão reportar outra cor.. por algum motivo
+// só vamos aceitar...
 
-/* const string preto = "Preto";
+// // Inglês
+// const string preto = "Black";
+// const string branco = "White";
+// const string vermelho = "Red";
+// const string verde = "Green";
+
+const string preto = "Preto";
 const string branco = "Branco";
 const string vermelho = "Vermelho";
-const string verde = "Verde"; */
+const string verde = "Verde";
 
 // Métodos auxiliares para acessar componentes
 Servomotor GetMotor(string referencia) => Bot.GetComponent<Servomotor>(referencia);
@@ -86,6 +99,18 @@ string LerSensorCor(string referencia) => GetSensorCor(referencia).Analog.ToStri
 
 bool SensorEh(string referencia, string cor) => LerSensorCor(referencia) == cor;
 bool SensorNaoEh(string referencia, string cor) => LerSensorCor(referencia) != cor;
+double acelaracao_por_angulo(double velocidade) {
+    // Medicoes de debug: descida = 80-90, subida ~270
+    double inclinacao = Bot.Inclination;
+    if (dbg) IO.PrintLine($"Inclinacao: {inclinacao}");
+    if (inclinacao >= angulo_descida_inf && inclinacao <= angulo_descida_sup) {
+        return velocidade * vel_descida_fator;
+    }
+    if (inclinacao >= angulo_subida) {
+        return velocidade * vel_subida_fator;
+    }
+    return velocidade;
+}
 
 // Ultrassônico: true se algum objeto está sendo visto pelos raios
 bool ObjetoDetectado() => GetUltrasonic(ultrasonico_ref).Analog != -1;
@@ -176,6 +201,7 @@ async Task Main()
         {
             if (dbg) IO.PrintLine("Frente");
             await AndarFrente();
+            await andar_frente(acelaracao_por_angulo(vel_padrao));
         }
         // Direita preta, esquerda não - virar direita
         else if (scd == preto && sce != preto)
@@ -205,6 +231,7 @@ async Task Main()
         {
             if (dbg) IO.PrintLine("Frente");
             await AndarFrente(200);
+            await andar_frente(acelaracao_por_angulo(200));
         }
     }
 }
