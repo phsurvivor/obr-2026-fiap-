@@ -195,7 +195,6 @@ async Task Main()
         {
             if (dbg) IO.PrintLine("Frente");
             await AndarFrente();
-            await andar_frente(acelaracao_por_angulo(vel_padrao));
         }
         // Direita preta, esquerda não - virar direita
         else if (scd == preto && sce != preto)
@@ -225,7 +224,6 @@ async Task Main()
         {
             if (dbg) IO.PrintLine("Frente");
             await AndarFrente(200);
-            await andar_frente(acelaracao_por_angulo(200));
         }
     }
 }
