@@ -25,12 +25,7 @@ Funções primárias responsáveis pelo funcionamento e movimentação do robô.
 | **scdl** | Sensor de cor Direito lateral
 | **scdl** | Sensor de cor Esquerdo lateral
 | **scm** | Sensor de cor Central
-| **sudt** | Sensor Ultrasônico Direita Traseiro
-| **sudf** | Sensor Ultrasônico Direita Frontal
-| **suet** | Sensor Ultrasônico Esquerda Traseiro
-| **suef** | Sensor Ultrasônico Esquerda Frontal
-| **suf**  | Sensor Ultrasônico Frontal
-| **sub**  | Sensor Ultrasônico Inferior 
+| **su**   | Sensor Ultrasônico
 
 
 
