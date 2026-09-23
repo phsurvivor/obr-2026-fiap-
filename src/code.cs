@@ -1,24 +1,24 @@
 // Referências dos componentes
-string motor_esquerda_ref = "me";
-string motor_direita_ref = "md";
-string sensor_cor_esquerda_ref = "scd"; // invertido pq funciona
-string sensor_cor_esquerda_lado_ref = "scdl"; // invertido pq funciona
-string sensor_cor_meio_ref = "scm";
-string sensor_cor_direita_ref = "sce"; // invertido pq funciona
-string sensor_cor_direita_lado_ref = "scel"; // invertido pq funciona
-string ultrasonico_ref = "su";
+const string motor_esquerda_ref = "me";
+const string motor_direita_ref = "md";
+const string sensor_cor_esquerda_ref = "scd"; // invertido pq funciona
+const string sensor_cor_esquerda_lado_ref = "scdl"; // invertido pq funciona
+const string sensor_cor_meio_ref = "scm";
+const string sensor_cor_direita_ref = "sce"; // invertido pq funciona
+const string sensor_cor_direita_lado_ref = "scel"; // invertido pq funciona
+const string ultrasonico_ref = "su";
 
 // Configurações
-bool dbg = false;
-double delay_exec = 0.2;
-double vel_padrao = 200;
-double vel_padrao_curva = 1000;
-double vel_padrao_curva2 = -700;
-double angulo_descida_inf = 80.0;
-double angulo_descida_sup = 90.0;
-double vel_descida_fator = 0.2;
-double angulo_subida = 270.0;
-double vel_subida_fator = 1.5;
+const bool dbg = false;
+const double delay_exec = 0.2;
+const double vel_padrao = 200;
+const double vel_padrao_curva = 1000;
+const double vel_padrao_curva2 = -700;
+const double angulo_descida_inf = 80.0;
+const double angulo_descida_sup = 90.0;
+const double vel_descida_fator = 0.2;
+const double angulo_subida = 270.0;
+const double vel_subida_fator = 1.5;
 
 // Constantes de cores (compatível com inglês e português)
 
@@ -39,7 +39,7 @@ ColorSensor GetSensorCor(string referencia) => Bot.GetComponent<ColorSensor>(ref
 UltrasonicSensor GetUltrasonic(string referencia) => Bot.GetComponent<UltrasonicSensor>(referencia);
 
 // Movimentos
-async Task AndarFrente(double velocidade = 100)
+async Task AndarFrente(double velocidade = vel_padrao)
 {
     GetMotor(motor_direita_ref).Locked = false;
     GetMotor(motor_esquerda_ref).Locked = false;
@@ -61,7 +61,7 @@ async Task Virar(double velocidade, double tick, bool ehDireita)
 async Task VirarEsquerda(double velocidade = 200, double tick = 0.9) => await Virar(velocidade, tick, false);
 async Task VirarDireita(double velocidade = 200, double tick = 0.9) => await Virar(velocidade, tick, true);
 
-async Task Volta(double velocidade = 100)
+async Task Volta(double velocidade = vel_padrao)
 {
     GetMotor(motor_direita_ref).Locked = false;
     GetMotor(motor_esquerda_ref).Locked = false;
