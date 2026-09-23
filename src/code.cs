@@ -1,12 +1,12 @@
 // Referências dos componentes
-string motor_esquerda_ref = "me";
-string motor_direita_ref = "md";
-string sensor_cor_esquerda_ref = "scd"; // invertido pq funciona
-string sensor_cor_esquerda_lado_ref = "scdl"; // invertido pq funciona
-string sensor_cor_meio_ref = "scm";
-string sensor_cor_direita_ref = "sce"; // invertido pq funciona
-string sensor_cor_direita_lado_ref = "scel"; // invertido pq funciona
-string ultrasonico_ref = "su";
+const string motor_esquerda_ref = "me";
+const string motor_direita_ref = "md";
+const string sensor_cor_esquerda_ref = "scd"; // invertido pq funciona
+const string sensor_cor_esquerda_lado_ref = "scdl"; // invertido pq funciona
+const string sensor_cor_meio_ref = "scm";
+const string sensor_cor_direita_ref = "sce"; // invertido pq funciona
+const string sensor_cor_direita_lado_ref = "scel"; // invertido pq funciona
+const string ultrasonico_ref = "su";
 
 // Configurações
 const bool dbg = false;
